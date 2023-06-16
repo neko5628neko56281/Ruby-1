@@ -19,12 +19,14 @@ def edit_memo
   file_name = gets.chomp
 
   if File.exist?("#{file_name}.csv")
-    print "メモしたい内容を記入してください\n完了したら 
-    を入力してください\n"
-    contents = STDIN.read.chomp
+    memo = CSV.read("#{file_name}.csv")
+    puts "現在のメモ内容: #{memo.join("\n")}"
+    
+    print "新しいメモの内容を入力してください: "
+    new_content = gets.chomp
 
     CSV.open("#{file_name}.csv", 'w') do |csv|
-      csv << [contents]
+      csv << [new_content]
     end
 
     puts "メモを編集しました。"
